@@ -24,7 +24,28 @@
     s.setProperty('--g-arch', (a * a).toFixed(4));
     s.setProperty('--g-archfade', smooth(0.62, 0.86, p).toFixed(4));
     s.setProperty('--g-dust', p.toFixed(4));
-    s.setProperty('--g-second', smooth(0.62, 0.86, p).toFixed(4));
+    s.setProperty('--g-second', smooth(0.8, 0.95, p).toFixed(4));
+    s.setProperty('--g-logo', smooth(0.45, 0.7, p).toFixed(4));
+    gateP = p;
+    seqDraw(clamp01((p - 0.5) / 0.5));
+  }
+
+  /* Logo frame sequence, scrubbed by scroll (40 frames). */
+  var gateP = 0, SEQ_N = 40, seqImgs = [], seqIdx = -1, seqCv = document.getElementById('logoSeq'), seqCtx = seqCv.getContext('2d');
+  for (var fi = 1; fi <= SEQ_N; fi++) { var im = new Image(); im.onload = function () { seqIdx = -1; }; im.src = 'assets/frames/f' + (fi < 10 ? '0' : '') + fi + '.webp'; seqImgs.push(im); }
+  function seqDraw(t) {
+    var i = Math.min(SEQ_N - 1, Math.round(t * (SEQ_N - 1)));
+    var d = Math.min(devicePixelRatio || 1, 2), w = Math.round(innerWidth * d), h = Math.round(innerHeight * d);
+    var resized = seqCv.width !== w || seqCv.height !== h;
+    if (resized) { seqCv.width = w; seqCv.height = h; }
+    if (i === seqIdx && !resized) return;
+    var im = seqImgs[i]; if (!im || !im.complete || !im.naturalWidth) return;
+    seqIdx = i;
+    seqCtx.fillStyle = '#fff'; seqCtx.fillRect(0, 0, w, h);
+    var k = Math.min(w / im.naturalWidth, h / im.naturalHeight) * 1.0;
+    k = Math.max(k, Math.min(w / im.naturalWidth, h / im.naturalHeight));
+    var iw = im.naturalWidth * k, ih = im.naturalHeight * k;
+    seqCtx.drawImage(im, (w - iw) / 2, (h - ih) / 2, iw, ih);
   }
 
   /* Dust: warm motes in the foreground plane, paused offscreen. */
@@ -42,7 +63,7 @@
       var m = motes[i];
       if (!reduce) { m.y -= m.v; m.x += Math.sin(t / 2400 + m.w) * 0.2; if (m.y < -10) { m.y = innerHeight + 10; m.x = Math.random() * innerWidth; } }
       dctx.beginPath(); dctx.arc(m.x, m.y, m.r, 0, 6.283);
-      dctx.fillStyle = 'rgba(236,186,110,' + m.a + ')'; dctx.fill();
+      dctx.fillStyle = 'rgba(155,231,180,' + m.a + ')'; dctx.fill();
     }
   }
   sizeDust(); addEventListener('resize', sizeDust, { passive: true });
@@ -81,7 +102,7 @@
       if (r.top <= probe && r.bottom > probe) cur = chapters[i];
     }
     if (!cur) return;
-    folio.classList.toggle('is-paper', cur.getAttribute('data-ground') === 'paper');
+    folio.classList.toggle('is-paper', cur.getAttribute('data-ground') === 'paper' || (cur === gate && gateP > 0.6));
     var id = cur.getAttribute('data-chapter');
     for (var k = 0; k < links.length; k++) links[k].setAttribute('aria-current', links[k].getAttribute('data-folio') === id ? 'true' : 'false');
   }
