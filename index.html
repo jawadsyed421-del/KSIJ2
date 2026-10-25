@@ -385,7 +385,7 @@
   .lb-prev { left: 1rem; top: 50%; translate: 0 -50%; }
   .lb-next { right: 1rem; top: 50%; translate: 0 -50%; }
   .btn, .plate, .shot .frame, .menu-btn, .committees a { cursor: pointer; }
-  .js-intro .gate__kicker, .js-intro .gate__title .ln, .js-intro .gate__title p, .js-intro .gate__actions { opacity: 0; }
+  .js-intro .gate__mark, .js-intro .gate__kicker, .js-intro .gate__title .ln, .js-intro .gate__title p, .js-intro .gate__actions { opacity: 0; }
   .gate__title .ln { display: inline-block; }
 
   @media (prefers-reduced-motion: reduce) {
@@ -453,6 +453,7 @@
   body.inner { background: var(--paper); color: var(--paper-ink); }
 </style>
 <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('js-intro');setTimeout(function(){document.documentElement.classList.remove('js-intro')},2500)}</script>
+<link rel="stylesheet" href="topbar.css?v=2">
 </head>
 <body>
 
@@ -460,36 +461,61 @@
 <div class="sc-grain" aria-hidden="true"></div>
 <a class="skip" href="#people" style="position:absolute;left:-999px">Skip to content</a>
 
-<header class="folio" id="folio">
-  <a class="mark" href="index.html#top" aria-label="KSIJ Mumbai, back to top">
-    <img class="mark__dark" src="assets/img/ksij-logo-bone.png" alt="KSIJ Mumbai" width="682" height="729">
-    <img class="mark__light" src="assets/img/ksij-logo.png" alt="" width="682" height="729">
-  </a>
-  <nav aria-label="Chapters">
-    <ol>
-      <li><a href="#top" data-folio="top">Home</a></li>
-      <li><a href="#people" data-folio="people">News &amp; people</a></li>
-      <li><a href="#heritage" data-folio="heritage">History</a></li>
-      <li><a href="#service" data-folio="service">Projects</a></li>
-      <li><a href="#committees" data-folio="committees">Committees</a></li>
-      <li><a href="#visit" data-folio="visit">Contact us</a></li>
-    </ol>
-  </nav>
-  <ul class="folio__pages" aria-label="Pages">
-    <li><a href="projects.html">Projects</a></li><li><a href="donate.html">Make Donation</a></li><li><a href="lifetime-membership.html">Lifetime Membership</a></li><li><a href="qaumi-sahayak.html">Qaumi Sahayak</a></li>
-  </ul>
-  <a class="donate" href="donate.html"><span>Make Donation</span> <span aria-hidden="true" style="text-decoration:none">→</span></a>
-  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet">Menu</button>
-</header>
+<div class="topstack" id="topstack">
+  <div class="ticker" role="region" aria-label="Important announcements">
+    <span class="ticker__tag">Announcements</span>
+    <div class="ticker__view"><div class="ticker__move">
+      <a href="#announcements">LEAP Conference, by KSI Jamat Mumbai</a>
+      <a href="#people">WF President in Mumbai CC meeting, Dec 2024</a>
+      <a href="#people">The WF President's India trip, November 2024</a>
+      <a href="#people">Students Felicitation 2023</a>
+      <a href="#people">Shaikh Mohammad Al Hilli Lecture</a>
+      <a href="donate.html">Make a donation to the Jamaat</a>
+    </div></div>
+  </div>
+  <div class="namaz" id="namaz" aria-label="Namaz times, Mumbai">
+    <span class="namaz__title">Namaz times <small id="namazDate">Mumbai</small></span>
+    <ul class="namaz__list" id="namazList">
+      <li><b>Fajr</b><span data-t="Fajr">--:--</span></li>
+      <li><b>Sunrise</b><span data-t="Sunrise">--:--</span></li>
+      <li><b>Zuhr</b><span data-t="Dhuhr">--:--</span></li>
+      <li><b>Maghrib</b><span data-t="Maghrib">--:--</span></li>
+    </ul>
+  </div>
+  <header class="folio" id="folio">
+    <a class="mark" href="index.html#top" aria-label="KSIJ Mumbai, back to top">
+      <img class="mark__dark" src="assets/img/ksij-logo-bone.png" alt="KSIJ Mumbai" width="682" height="729">
+      <img class="mark__light" src="assets/img/ksij-logo.png" alt="" width="682" height="729">
+    </a>
+    <nav aria-label="Chapters">
+      <ol>
+        <li><a href="#top" data-folio="top">Home</a></li>
+        <li><a href="#announcements" data-folio="announcements">Announcements</a></li>
+        <li><a href="#people" data-folio="people">News &amp; People</a></li>
+        <li><a href="#heritage" data-folio="heritage">History</a></li>
+        <li><a href="#service" data-folio="service">How we help</a></li>
+        <li><a href="#committees" data-folio="committees">Departments</a></li>
+        <li><a href="#youth" data-folio="youth">Youth</a></li>
+        <li><a href="#centres" data-folio="centres">Centres</a></li>
+        <li><a href="#visit" data-folio="visit">Contact us</a></li>
+      </ol>
+    </nav>
+    <a class="donate" href="donate.html"><span>Make Donation</span> <span aria-hidden="true" style="text-decoration:none">→</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet">Menu</button>
+  </header>
+</div>
 
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Menu">
   <button class="menu-btn close" type="button">Close</button>
   <ol>
     <li><a href="#top">Home</a></li>
-    <li><a href="#people">News &amp; people</a></li>
+    <li><a href="#announcements">Announcements</a></li>
+    <li><a href="#people">News &amp; People</a></li>
     <li><a href="#heritage">History</a></li>
-    <li><a href="#service">Projects</a></li>
-    <li><a href="#committees">Committees</a></li>
+    <li><a href="#service">How we help</a></li>
+    <li><a href="#committees">Departments</a></li>
+    <li><a href="#youth">Youth</a></li>
+    <li><a href="#centres">Centres</a></li>
     <li><a href="#visit">Contact us</a></li>
   </ol>
   <ol class="sheet__pages">
@@ -505,9 +531,10 @@
     <div data-sc-stage>
       <div class="gate__plane gate__city"><img src="assets/img/skyline.jpg" alt="Dusk over the old quarter of Dongri, Mumbai, with mosque domes and minarets against a green sky" width="1344" height="752" fetchpriority="high"></div>
       <div class="gate__plane gate__haze" aria-hidden="true"></div>
-      <div class="gate__plane gate__logo" aria-hidden="true"><canvas id="logoSeq"></canvas></div>
+      <div class="gate__plane gate__logo" aria-hidden="true"><canvas id="logoSeq"></canvas><div class="gate__final"><img src="assets/img/ksij-logo-original.jpg" alt="" width="1080" height="1080"></div></div>
       <div class="gate__title">
         <div class="gate__title-inner">
+          <div class="gate__mark"><img src="assets/img/ksij-logo.png" alt="KSIJ Mumbai logo" width="682" height="729"></div>
           <div class="gate__kicker">KSIJ · Mumbai</div>
           <h1 class="sc-display"><span class="ln">Khoja Shia Ithna Asheri</span><br><em class="ln">Jamaat, Mumbai.</em></h1>
           <p>Projects, bookings and donations for our community.</p>
@@ -523,6 +550,27 @@
           <a class="btn" href="donate.html">Make Donation</a>
           <a class="btn btn--ghost" href="projects.html">Projects</a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANNOUNCEMENTS · sliding banners -->
+  <section class="chapter announce ground-forest" id="announcements" data-chapter="announcements" data-ground="forest" aria-label="Announcements">
+    <div class="chapter__head" data-sc-in>
+      <div class="label">Announcements</div>
+      <h2 class="sc-display" style="margin-top:1rem">What is <em>happening.</em></h2>
+    </div>
+    <div class="slider" id="slider" data-sc-in>
+      <ul class="slider__track" id="sliderTrack">
+        <li class="slide"><div class="slide__body"><span class="label">Conference</span><h3>LEAP Conference, by KSI Jamat Mumbai</h3><p>Organised by the Khoja Shia Ithna Asheri Jamaat, Mumbai.</p><a class="btn" href="#people">Read more</a></div></li>
+        <li class="slide"><div class="slide__body"><span class="label">News</span><h3>WF President in Mumbai CC meeting, December 2024</h3><p>Update on the Consulting Committee meeting of the Khoja Shia Ithna Asheri community.</p><a class="btn" href="#people">Read more</a></div></li>
+        <li class="slide"><div class="slide__body"><span class="label">Event</span><h3>Students Felicitation 2023</h3><p>The WF President at the Students Felicitation Function.</p><a class="btn" href="#people">Read more</a></div></li>
+        <li class="slide"><div class="slide__body"><span class="label">Lecture</span><h3>Shaikh Mohammad Al Hilli Lecture</h3><p>A spiritual journey recounted with the community.</p><a class="btn" href="#people">Read more</a></div></li>
+      </ul>
+      <div class="slider__ctrl">
+        <button type="button" class="slider__btn" id="sliderPrev" aria-label="Previous announcement">←</button>
+        <div class="slider__dots" id="sliderDots"></div>
+        <button type="button" class="slider__btn" id="sliderNext" aria-label="Next announcement">→</button>
       </div>
     </div>
   </section>
@@ -550,6 +598,8 @@
         <article><time datetime="2024-11-22">November 22, 2024</time><h4>The WF Presidents India Trip – November 2024</h4><p>The WF President – Alhaj Safder Jaffer recently visited Mumbai…</p><a class="more" href="#people">Read More</a></article>
         <article><time datetime="2024-02-11">February 11, 2024</time><h4>The WF President at Students Felicitation 2023</h4><p>Students Felicitation Function – 2023</p><a class="more" href="#people">Read More</a></article>
         <article><time datetime="2024-02-11">February 11, 2024</time><h4>Shaikh Mohammad Al Hilli Lecture</h4><p>Embark on a spiritual journey with us as we recount…</p><a class="more" href="#people">Read More</a></article>
+        <h3 class="obit__h">Obituaries</h3>
+        <article class="obit"><p>Inna lillahi wa inna ilayhi raji'un. Obituary notices announced by the Jamaat office are listed here. Kindly recite Surah Fatiha for the marhoomeen.</p></article>
       </div>
     </div>
   </section>
@@ -631,6 +681,27 @@
     <p class="committees__all"><a class="btn btn--ghost" href="#committees">View All</a></p>
   </section>
 
+  <!-- YOUTH -->
+  <section class="chapter youth ground-paper" id="youth" data-sc-act="flow" data-chapter="youth" data-ground="paper">
+    <div class="chapter__head" data-sc-in>
+      <div class="label">Youth Committee</div>
+      <h2 class="sc-display" style="margin-top:1rem">The next <em>generation.</em></h2>
+      <p class="lede">The Youth Committee brings the young members of the Jamaat together through learning, service and community events. Write to us to take part.</p>
+      <p style="margin-top:1.6rem"><a class="btn" href="mailto:info@ksijamat.org">Get in touch</a></p>
+    </div>
+  </section>
+
+  <!-- CENTRES -->
+  <section class="chapter centres-sec ground-forest" id="centres" data-sc-act="flow" data-chapter="centres" data-ground="forest">
+    <div class="chapter__head" data-sc-in>
+      <div class="label">Centres &amp; Masjids</div>
+      <h2 class="sc-display" style="margin-top:1rem">Where to <em>find us.</em></h2>
+    </div>
+    <div class="committee-grid centre-grid" data-sc-in data-sc-stagger="60">
+      <a href="#visit" class="is-accent"><span class="centre-t">Jamaat Head Office, Dongri<small>66/70, Hazrat Abbas (a.s.) Street, Dongri, Mumbai 400 009</small></span> <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section class="chapter home ground-forest" id="visit" data-sc-act="flow" data-chapter="visit" data-ground="forest">
     <div class="home__arch">
@@ -664,6 +735,6 @@
 
 <script src="scrollcraft.js"></script>
 <script src="assets/vendor/motion.js"></script>
-<script src="home.js?v=2"></script>
+<script src="home.js?v=5"></script>
 </body>
 </html>

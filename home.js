@@ -24,14 +24,15 @@
     s.setProperty('--g-arch', (a * a).toFixed(4));
     s.setProperty('--g-archfade', smooth(0.62, 0.86, p).toFixed(4));
     s.setProperty('--g-dust', p.toFixed(4));
+    s.setProperty('--g-final', smooth(0.86, 0.94, p).toFixed(4));
     s.setProperty('--g-second', smooth(0.8, 0.95, p).toFixed(4));
     s.setProperty('--g-logo', smooth(0.45, 0.7, p).toFixed(4));
     gateP = p;
-    seqDraw(clamp01((p - 0.5) / 0.5));
+    seqDraw(clamp01((p - 0.5) / 0.36));
   }
 
-  /* Logo frame sequence, scrubbed by scroll (40 frames). */
-  var gateP = 0, SEQ_N = 40, seqImgs = [], seqIdx = -1, seqCv = document.getElementById('logoSeq'), seqCtx = seqCv.getContext('2d');
+  /* Logo frame sequence, scrubbed by scroll (frames 1-21; later generated frames show a wrong logo). */
+  var gateP = 0, SEQ_N = 21, seqImgs = [], seqIdx = -1, seqCv = document.getElementById('logoSeq'), seqCtx = seqCv.getContext('2d');
   for (var fi = 1; fi <= SEQ_N; fi++) { var im = new Image(); im.onload = function () { seqIdx = -1; }; im.src = 'assets/frames/f' + (fi < 10 ? '0' : '') + fi + '.webp'; seqImgs.push(im); }
   function seqDraw(t) {
     var i = Math.min(SEQ_N - 1, Math.round(t * (SEQ_N - 1)));
@@ -114,6 +115,39 @@
   }
   requestAnimationFrame(frame);
 
+  /* ---------------- Namaz times (Mumbai, Jafari method, via Aladhan) ---------------- */
+  (function () {
+    var box = document.getElementById('namaz'); if (!box) return;
+    var dateEl = document.getElementById('namazDate');
+    var key = 'ksij-namaz-' + new Date().toDateString();
+    function fmt(t) { var m = /(\d+):(\d+)/.exec(t || ''); if (!m) return '--:--'; var h = +m[1], ap = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12; return h + ':' + m[2] + ' ' + ap; }
+    function show(d) {
+      box.querySelectorAll('[data-t]').forEach(function (e) { e.textContent = fmt(d[e.getAttribute('data-t')]); });
+      dateEl.textContent = 'Mumbai · ' + new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+    }
+    try { var c = JSON.parse(localStorage.getItem(key) || 'null'); if (c) { show(c); return; } } catch (e) {}
+    fetch('https://api.aladhan.com/v1/timingsByCity?city=Mumbai&country=India&method=0')
+      .then(function (r) { return r.json(); })
+      .then(function (j) { var t = j.data.timings; show(t); try { localStorage.setItem(key, JSON.stringify(t)); } catch (e) {} })
+      .catch(function () { dateEl.textContent = 'Mumbai · times unavailable'; });
+  })();
+
+  /* ---------------- Announcements slider ---------------- */
+  (function () {
+    var track = document.getElementById('sliderTrack'); if (!track) return;
+    var slides = track.children, dots = document.getElementById('sliderDots'), n = slides.length, cur = 0, timer;
+    for (var i = 0; i < n; i++) (function (k) { var b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Go to announcement ' + (k + 1)); b.addEventListener('click', function () { go(k); }); dots.appendChild(b); })(i);
+    function mark() { for (var i = 0; i < n; i++) dots.children[i].setAttribute('aria-current', i === cur ? 'true' : 'false'); }
+    function go(k) { cur = (k + n) % n; track.scrollTo({ left: slides[cur].offsetLeft - track.offsetLeft, behavior: reduce ? 'auto' : 'smooth' }); mark(); restart(); }
+    function restart() { clearInterval(timer); if (!reduce) timer = setInterval(function () { go(cur + 1); }, 5500); }
+    document.getElementById('sliderPrev').addEventListener('click', function () { go(cur - 1); });
+    document.getElementById('sliderNext').addEventListener('click', function () { go(cur + 1); });
+    track.addEventListener('scroll', function () { var k = Math.round(track.scrollLeft / Math.max(1, slides[0].offsetWidth + 16)); if (k !== cur && k >= 0 && k < n) { cur = k; mark(); } }, { passive: true });
+    track.addEventListener('pointerenter', function () { clearInterval(timer); });
+    track.addEventListener('pointerleave', restart);
+    mark(); restart();
+  })();
+
   /* ---------------- Phone sheet ---------------- */
   var sheet = document.getElementById('sheet'), open = folio.querySelector('.menu-btn'), close = sheet.querySelector('.close');
   function setSheet(on) { sheet.classList.toggle('is-open', on); open.setAttribute('aria-expanded', on); if (on) close.focus(); else open.focus(); }
@@ -129,7 +163,7 @@
   var springy = { type: 'spring', stiffness: 320, damping: 26 };
 
   /* Arrival: kicker, headline lines and subline rise in sequence. */
-  var intro = [document.querySelector('.gate__kicker')]
+  var intro = [document.querySelector('.gate__mark'), document.querySelector('.gate__kicker')]
     .concat([].slice.call(document.querySelectorAll('.gate__title .ln')))
     .concat([document.querySelector('.gate__title p')]);
   if (M && !reduce) {
