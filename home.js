@@ -43,9 +43,10 @@
     var im = seqImgs[i]; if (!im || !im.complete || !im.naturalWidth) return;
     seqIdx = i;
     seqCtx.fillStyle = '#fff'; seqCtx.fillRect(0, 0, w, h);
-    var k = Math.min(w / im.naturalWidth, h / im.naturalHeight) * 1.0;
-    k = Math.max(k, Math.min(w / im.naturalWidth, h / im.naturalHeight));
+    var kc = Math.min(w / im.naturalWidth, h / im.naturalHeight), k = kc;
+    if (w < h) { k = Math.max(kc, Math.min(0.82 * w / (0.41 * im.naturalWidth), 0.6 * h / (0.74 * im.naturalHeight))); }
     var iw = im.naturalWidth * k, ih = im.naturalHeight * k;
+    gate.style.setProperty('--seq-w', (0.41 * iw / d).toFixed(1) + 'px');
     seqCtx.drawImage(im, (w - iw) / 2, (h - ih) / 2, iw, ih);
   }
 
