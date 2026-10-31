@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Donation · KSIJ Mumbai</title>
 <meta name="description" content="The Khoja Shia Ithna Asheri Jamaat, Mumbai. Projects, bookings, membership and donations.">
-<meta name="theme-color" content="#0A3D22">
+<meta name="theme-color" content="#08170F">
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,21 +15,32 @@
 <link rel="stylesheet" href="scrollcraft.css">
 <style>
   :root {
-    --sc-canvas:     #0A3D22;
-    --sc-surface:    #0F4F2C;
-    --sc-ink:        #FFFFFF;
-    --sc-ink-soft:   #CFE8D8;
-    --sc-accent:     #9BE7B4;
-    --sc-accent-ink: #0A3D22;
+    /* Brand green: Deep, prestigious nocturnal emerald ground */
+    --sc-canvas:     #08170F;
+    --sc-surface:    #0F2419;
+    --sc-ink:        #F9F8F5;
+    --sc-ink-soft:   #B8C2BC;
+
+    /* Gold palette: Refined champagne & heritage gold */
+    --sc-gold:        #C8A34E;
+    --sc-gold-light:  #DFC17B;
+    --sc-gold-soft:   #F4EBD9;
+    --sc-gold-dark:   #8C6D23;
+    --sc-gold-ink:    #141005;
+
+    /* Active accent roles mapped to gold */
+    --sc-accent:      var(--sc-gold);
+    --sc-accent-ink:  var(--sc-gold-ink);
     --sc-font-display: "Fraunces", Georgia, serif;
     --sc-font-text:    "Geist", system-ui, sans-serif;
-    --sc-shadow-color: 150 45% 4%;
+    --sc-shadow-color: 150 40% 3%;
 
-    --paper:      #FFFFFF;
-    --paper-ink:  #0B2A18;
-    --paper-soft: #3F5A49;
-    --paper-acc:  #0E8A3A;
-    --circuit:    #7FD18B;
+    /* Editorial paper neutral ground */
+    --paper:      #FAF8F4;
+    --paper-ink:  #161D19;
+    --paper-soft: #5C6760;
+    --paper-acc:  #9E7B26;
+    --circuit:    var(--sc-gold);
     --folio-w:    11.5rem;
   }
 
@@ -41,7 +52,7 @@
   /* Ground families. Colour is restated with the token (taste.md). */
   .ground-paper { --sc-ink: var(--paper-ink); --sc-ink-soft: var(--paper-soft); --sc-accent: var(--paper-acc); --sc-hairline: color-mix(in oklab, var(--paper-ink) 16%, transparent); background: var(--paper); color: var(--sc-ink); }
   .ground-forest { background: var(--sc-canvas); color: var(--sc-ink); }
-  .ground-deep { background: #08120E; color: var(--sc-ink); }
+  .ground-deep { background: #050E09; color: var(--sc-ink); }
 
   /* ----------------------------------------------------------------------
      FOLIO: the chapter index is the navigation. Margin on desktop, a sheet
@@ -69,28 +80,28 @@
   }
   .folio li a::before { content: ""; width: 1rem; height: 1px; background: currentColor; transition: width 240ms var(--sc-ease-out); }
   .folio li a:hover, .folio li a[aria-current="true"] { opacity: 1; }
-  .folio li a[aria-current="true"]::before { width: 2.2rem; background: var(--sc-accent); }
+  .folio li a[aria-current="true"]::before { width: 2.2rem; background: var(--sc-gold); }
   .folio.is-paper li a[aria-current="true"]::before { background: var(--paper-acc); }
-  .folio .donate { font-size: 0.85rem; font-weight: 600; text-decoration: none; display: inline-flex; gap: 0.4rem; align-items: center; }
-  .folio .donate span { text-decoration: underline; text-underline-offset: 0.25em; text-decoration-color: var(--sc-accent); text-decoration-thickness: 2px; }
+  .folio .donate { font-size: 0.85rem; font-weight: 600; text-decoration: none; display: inline-flex; gap: 0.4rem; align-items: center; padding: 0.45rem 1rem; border-radius: 999px; background: linear-gradient(135deg, var(--sc-gold-light) 0%, var(--sc-gold) 100%); color: var(--sc-gold-ink); box-shadow: 0 2px 10px rgba(200, 163, 78, 0.28); }
+  .folio .donate span { text-decoration: none; }
   .menu-btn, .sheet { display: none; }
   .folio__pages { list-style: none; margin: 0; padding: 0.9rem 0 0; border-top: 1px solid color-mix(in oklab, currentColor 22%, transparent); width: 8.5rem; display: grid; gap: 0.1rem; }
   .folio__pages a { font-size: 0.78rem; text-decoration: none; opacity: 0.7; display: block; padding: 0.22rem 0; }
   .folio__pages a:hover { opacity: 1; text-decoration: underline; }
   @media (max-height: 760px) { .folio__pages { display: none; } }
 
-  :focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 3px; border-radius: 4px; }
+  :focus-visible { outline: 2px solid var(--sc-gold); outline-offset: 3px; border-radius: 4px; }
 
   .btn {
     display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.85rem 1.35rem; border-radius: var(--sc-r-pill);
-    background: var(--sc-accent); color: var(--sc-accent-ink); font-weight: 600; text-decoration: none; font-size: 0.95rem;
-    box-shadow: var(--sc-e2); transition: transform 140ms var(--sc-ease-out), background-color 160ms var(--sc-ease-out); white-space: nowrap;
+    background: linear-gradient(135deg, var(--sc-gold-light) 0%, var(--sc-gold) 100%); color: var(--sc-gold-ink); font-weight: 600; text-decoration: none; font-size: 0.95rem;
+    box-shadow: 0 2px 10px rgba(200, 163, 78, 0.28); transition: transform 140ms var(--sc-ease-out), filter 160ms var(--sc-ease-out), box-shadow 160ms var(--sc-ease-out); white-space: nowrap;
   }
-  .btn:hover { background: color-mix(in oklab, var(--sc-accent) 88%, white); }
+  .btn:hover { filter: brightness(1.08); box-shadow: 0 4px 16px rgba(200, 163, 78, 0.38); }
   .btn:active { transform: scale(0.97); }
-  .btn--ghost { background: transparent; color: inherit; box-shadow: inset 0 0 0 1px color-mix(in oklab, currentColor 45%, transparent); }
-  .btn--ghost:hover { background: color-mix(in oklab, currentColor 10%, transparent); }
-  .ground-paper .btn { color: #FFF8EC; }
+  .btn--ghost { background: transparent; color: inherit; box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--sc-gold) 45%, transparent); }
+  .btn--ghost:hover { background: color-mix(in oklab, var(--sc-gold) 12%, transparent); border-color: var(--sc-gold); }
+  .ground-paper .btn { color: var(--sc-gold-ink); }
 
   main { position: relative; }
 
@@ -179,7 +190,7 @@
   .plate li { border-top: 1px solid var(--sc-hairline); }
   .plate li a, .plate li span { display: flex; justify-content: space-between; padding: 0.75rem 0; text-decoration: none; font-weight: 500; }
   .plate li a:hover { color: var(--sc-accent); }
-  .plate--accent { background: var(--sc-accent); color: var(--sc-accent-ink); --sc-ink-soft: #0F4F2C; --sc-hairline: rgba(12,27,21,0.2); }
+  .plate--accent { background: linear-gradient(135deg, #DFC17B 0%, #C8A34E 100%); color: #141005; --sc-ink-soft: #4A3A12; --sc-hairline: rgba(20,16,5,0.2); }
   .plate--accent .label { color: var(--sc-accent-ink); }
   .plate--accent .plate__motif { color: var(--sc-accent-ink); opacity: 0.12; }
   .plate .more { margin-top: 1.4rem; font-weight: 600; text-decoration: none; display: inline-flex; gap: 0.4rem; }
@@ -194,9 +205,9 @@
   .lattice .pulse { fill: none; stroke: #E9FFE8; stroke-width: 2.2; stroke-linecap: round; stroke-dasharray: 0.035 0.965; opacity: 0; }
   .turn.is-live .lattice .pulse { opacity: 0.9; animation: pulse var(--dur, 3s) linear infinite; animation-delay: var(--del, 0s); }
   @keyframes pulse { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
-  .lattice .pad { fill: #062715; stroke: var(--circuit); stroke-width: 1.6; }
-  .lattice .chip { fill: #0A3D22; stroke: var(--circuit); stroke-width: 1.4; }
-  .turn__vignette { position: absolute; inset: 0; background: radial-gradient(80% 80% at 55% 50%, rgba(7,17,13,0) 20%, rgba(7,17,13,0.55) 75%, #062715 100%), linear-gradient(90deg, rgba(7,17,13,0.85) 0%, rgba(7,17,13,0) 45%); pointer-events: none; }
+  .lattice .pad { fill: #041009; stroke: var(--circuit); stroke-width: 1.6; }
+  .lattice .chip { fill: #08170F; stroke: var(--circuit); stroke-width: 1.4; }
+  .turn__vignette { position: absolute; inset: 0; background: radial-gradient(80% 80% at 55% 50%, rgba(7,17,13,0) 20%, rgba(7,17,13,0.55) 75%, #05130B 100%), linear-gradient(90deg, rgba(7,17,13,0.85) 0%, rgba(7,17,13,0) 45%); pointer-events: none; }
   .turn__copy { position: absolute; left: calc(var(--folio-w) + 1rem); right: var(--sc-gutter); top: 50%; transform: translateY(-50%); pointer-events: none; }
   .turn__copy > * { position: absolute; left: 0; top: 50%; translate: 0 -50%; max-width: 30ch; margin: 0; }
   .turn__line { font-family: var(--sc-font-display); font-size: clamp(1.9rem, 1.2rem + 2.6vw, 3.8rem); line-height: 1.08; letter-spacing: -0.025em; font-weight: 400; text-wrap: balance; }
@@ -308,7 +319,7 @@
     .folio.is-paper { background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0)); }
     .folio nav, .folio .donate { display: none; }
     .menu-btn { display: inline-flex; align-items: center; gap: 0.5rem; font: inherit; font-size: 0.9rem; font-weight: 600; color: inherit; background: none; border: 1px solid color-mix(in oklab, currentColor 40%, transparent); border-radius: var(--sc-r-pill); padding: 0.55rem 1rem; min-height: 44px; }
-    .sheet { position: fixed; inset: 0; z-index: 80; background: #0A3D22; color: #FFFFFF; padding: 5rem 1.5rem 2rem; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; pointer-events: none; transform: translateY(-2%); transition: opacity 220ms var(--sc-ease-out), transform 220ms var(--sc-ease-out); }
+    .sheet { position: fixed; inset: 0; z-index: 80; background: #08170F; color: #FFFFFF; padding: 5rem 1.5rem 2rem; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; pointer-events: none; transform: translateY(-2%); transition: opacity 220ms var(--sc-ease-out), transform 220ms var(--sc-ease-out); }
     .sheet.is-open { opacity: 1; pointer-events: auto; transform: none; }
     .sheet ol { list-style: none; margin: 0; padding: 0; }
     .sheet li a { display: block; font-family: var(--sc-font-display); font-size: 2rem; padding: 0.55rem 0; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.12); }

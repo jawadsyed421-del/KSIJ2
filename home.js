@@ -65,7 +65,7 @@
       var m = motes[i];
       if (!reduce) { m.y -= m.v; m.x += Math.sin(t / 2400 + m.w) * 0.2; if (m.y < -10) { m.y = innerHeight + 10; m.x = Math.random() * innerWidth; } }
       dctx.beginPath(); dctx.arc(m.x, m.y, m.r, 0, 6.283);
-      dctx.fillStyle = 'rgba(155,231,180,' + m.a + ')'; dctx.fill();
+      dctx.fillStyle = 'rgba(218,185,110,' + m.a + ')'; dctx.fill();
     }
   }
   sizeDust(); addEventListener('resize', sizeDust, { passive: true });
