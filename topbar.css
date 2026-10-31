@@ -3,7 +3,7 @@
 
 :root {
   --folio-w: 0rem;
-  --tick-h: 2.2rem;
+  --tick-h: 3.8rem;
   --nam-h: 2.5rem;
   --nav-h: 4rem;
   --top-h: calc(var(--tick-h) + var(--nam-h) + var(--nav-h));
@@ -17,8 +17,8 @@
 .topstack { position: fixed; z-index: var(--sc-z-chrome); top: 0; left: 0; right: 0; }
 
 /* announcement scroller */
-.ticker { height: var(--tick-h); display: flex; align-items: center; background: #050E09; color: #F0EDE6; font-size: 0.82rem; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,0.05); }
-.ticker__tag { flex: none; height: 100%; display: grid; place-items: center; padding: 0 1rem; background: linear-gradient(135deg, var(--sc-gold-light) 0%, var(--sc-gold) 100%); color: var(--sc-gold-ink); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; z-index: 1; }
+.ticker { height: var(--tick-h); display: flex; align-items: center; background: #050E09; color: #F0EDE6; font-size: 1rem; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.ticker__tag { flex: none; height: 100%; display: grid; place-items: center; padding: 0 1.4rem; background: linear-gradient(135deg, var(--sc-gold-light) 0%, var(--sc-gold) 100%); color: var(--sc-gold-ink); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; z-index: 1; }
 .ticker__view { flex: 1; overflow: hidden; white-space: nowrap; }
 .ticker__move { display: inline-flex; gap: 3rem; padding-left: 100%; animation: tick 48s linear infinite; }
 .ticker__view:hover .ticker__move { animation-play-state: paused; }
@@ -85,7 +85,7 @@
 }
 
 /* announcements: bigger prominent header */
-.announce .chapter__head { max-width: 58rem; }
+.announce .chapter__head { max-width: 65rem; }
 .announce .sc-display { font-size: clamp(3.2rem, 2.2rem + 4.8vw, 5.8rem) !important; line-height: 1.02 !important; letter-spacing: -0.03em; }
 .announce .label { font-size: 0.88rem; letter-spacing: 0.18em; color: var(--sc-gold-light); margin-bottom: 0.5rem; }
 
@@ -93,7 +93,7 @@
 .slider { margin-top: 2.4rem; position: relative; }
 .slider__track { list-style: none; margin: 0; padding: 0; display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; gap: 1rem; scrollbar-width: none; border-radius: var(--sc-r-lg); }
 .slider__track::-webkit-scrollbar { display: none; }
-.slide { flex: 0 0 100%; scroll-snap-align: start; min-height: clamp(15rem, 40vh, 22rem); border-radius: var(--sc-r-lg); display: flex; align-items: flex-end; padding: clamp(1.4rem, 3vw, 2.6rem); background: radial-gradient(120% 140% at 85% 0%, #153B25 0%, #0D2619 55%, #07190F 100%); border: 1px solid rgba(255,255,255,0.06); position: relative; overflow: hidden; box-shadow: inset 0 1px 0 rgba(200, 163, 78, 0.22), var(--sc-e2); }
+.slide { flex: 0 0 100%; scroll-snap-align: start; min-height: clamp(15rem, 55vh, 32rem); border-radius: var(--sc-r-lg); display: flex; align-items: flex-end; padding: clamp(1.4rem, 3vw, 2.6rem); background: radial-gradient(120% 140% at 85% 0%, #153B25 0%, #0D2619 55%, #07190F 100%); border: 1px solid rgba(255,255,255,0.06); position: relative; overflow: hidden; box-shadow: inset 0 1px 0 rgba(200, 163, 78, 0.22), var(--sc-e2); }
 .slide::after { content: ""; position: absolute; right: -4rem; top: -4rem; width: 18rem; height: 18rem; opacity: 0.1; background: url("assets/img/ksij-logo-bone.png") center / contain no-repeat; }
 .slide__body { position: relative; z-index: 1; max-width: 42rem; }
 .slide h3 { font-family: var(--sc-font-display); font-weight: 450; font-size: clamp(1.75rem, 1.25rem + 1.7vw, 2.85rem); line-height: 1.08; letter-spacing: -0.02em; margin: 0.6rem 0 0.7rem; }
