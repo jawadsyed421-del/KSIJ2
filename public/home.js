@@ -24,30 +24,46 @@
     s.setProperty('--g-arch', (a * a).toFixed(4));
     s.setProperty('--g-archfade', smooth(0.62, 0.86, p).toFixed(4));
     s.setProperty('--g-dust', p.toFixed(4));
-    s.setProperty('--g-final', smooth(0.86, 0.94, p).toFixed(4));
-    s.setProperty('--g-second', smooth(0.8, 0.95, p).toFixed(4));
+    finishTarget = smooth(0.88, 0.95, p);
+    dockTarget = smooth(0.9, 0.98, p);
+    copyTarget = smooth(0.92, 0.99, p);
     s.setProperty('--g-logo', smooth(0.45, 0.7, p).toFixed(4));
     gateP = p;
-    seqDraw(clamp01((p - 0.5) / 0.36));
+    seqTarget = clamp01((p - 0.5) / 0.36);
   }
 
-  /* Logo frame sequence, scrubbed by scroll (frames 1-21; later generated frames show a wrong logo). */
-  var gateP = 0, SEQ_N = 21, seqImgs = [], seqIdx = -1, seqCv = document.getElementById('logoSeq'), seqCtx = seqCv.getContext('2d');
-  for (var fi = 1; fi <= SEQ_N; fi++) { var im = new Image(); im.onload = function () { seqIdx = -1; }; im.src = 'assets/frames/f' + (fi < 10 ? '0' : '') + fi + '.webp'; seqImgs.push(im); }
+  /* Logo frames scrubbed by scroll; omit the frames where the unwanted lettering begins. */
+  var gateP = 0, seqTarget = 0, seqPosition = 0, seqLast = 0, seqFiles = [];
+  var finishTarget = 0, dockTarget = 0, copyTarget = 0;
+  var finishPosition = 0, dockPosition = 0, copyPosition = 0;
+  for (var fi = 1; fi <= 21; fi++) if (fi < 13) seqFiles.push(fi);
+  var SEQ_N = seqFiles.length, seqImgs = [], seqKey = -1, seqCv = document.getElementById('logoSeq'), seqCtx = seqCv.getContext('2d');
+  for (var si = 0; si < SEQ_N; si++) { var fi = seqFiles[si], im = new Image(); im.onload = function () { seqKey = -1; }; im.src = '/assets/frames/f' + (fi < 10 ? '0' : '') + fi + '.webp'; seqImgs.push(im); }
   function seqDraw(t) {
-    var i = Math.min(SEQ_N - 1, Math.round(t * (SEQ_N - 1)));
+    var framePos = clamp01(t) * (SEQ_N - 1), i = Math.floor(framePos), next = Math.min(SEQ_N - 1, i + 1), blend = framePos - i;
     var d = Math.min(devicePixelRatio || 1, 2), w = Math.round(innerWidth * d), h = Math.round(innerHeight * d);
     var resized = seqCv.width !== w || seqCv.height !== h;
     if (resized) { seqCv.width = w; seqCv.height = h; }
-    if (i === seqIdx && !resized) return;
-    var im = seqImgs[i]; if (!im || !im.complete || !im.naturalWidth) return;
-    seqIdx = i;
+    var key = Math.round(framePos * 100);
+    if (key === seqKey && !resized) return;
+    if ((!seqImgs[i] || !seqImgs[i].complete || !seqImgs[i].naturalWidth) && (!seqImgs[next] || !seqImgs[next].complete || !seqImgs[next].naturalWidth)) return;
+    seqKey = key;
     seqCtx.fillStyle = '#fff'; seqCtx.fillRect(0, 0, w, h);
+    var im = seqImgs[i] && seqImgs[i].complete && seqImgs[i].naturalWidth ? seqImgs[i] : seqImgs[next];
     var kc = Math.min(w / im.naturalWidth, h / im.naturalHeight), k = kc;
     if (w < h) { k = Math.max(kc, Math.min(0.82 * w / (0.41 * im.naturalWidth), 0.6 * h / (0.74 * im.naturalHeight))); }
     var iw = im.naturalWidth * k, ih = im.naturalHeight * k;
     gate.style.setProperty('--seq-w', (0.41 * iw / d).toFixed(1) + 'px');
-    seqCtx.drawImage(im, (w - iw) / 2, (h - ih) / 2, iw, ih);
+    var dx = (w - iw) / 2, dy = (h - ih) / 2;
+    if (seqImgs[i] && seqImgs[i].complete && seqImgs[i].naturalWidth) {
+      seqCtx.globalAlpha = next === i ? 1 : 1 - blend;
+      seqCtx.drawImage(seqImgs[i], dx, dy, iw, ih);
+    }
+    if (next !== i && seqImgs[next] && seqImgs[next].complete && seqImgs[next].naturalWidth) {
+      seqCtx.globalAlpha = blend;
+      seqCtx.drawImage(seqImgs[next], dx, dy, iw, ih);
+    }
+    seqCtx.globalAlpha = 1;
   }
 
   /* Dust: warm motes in the foreground plane, paused offscreen. */
@@ -111,6 +127,21 @@
 
   function frame(t) {
     gateFrame(); homeFrame(); folioFrame();
+    var elapsed = seqLast ? Math.min(t - seqLast, 64) : 16;
+    seqLast = t;
+    var follow = reduce ? 1 : 1 - Math.exp(-elapsed / 130);
+    seqPosition += (seqTarget - seqPosition) * follow;
+    if (Math.abs(seqTarget - seqPosition) < 0.001) seqPosition = seqTarget;
+    var layoutFollow = reduce ? 1 : 1 - Math.exp(-elapsed / 180);
+    finishPosition += (finishTarget - finishPosition) * layoutFollow;
+    dockPosition += (dockTarget - dockPosition) * layoutFollow;
+    copyPosition += (copyTarget - copyPosition) * layoutFollow;
+    gate.style.setProperty('--g-final', finishPosition.toFixed(4));
+    gate.style.setProperty('--g-dock-x', (innerWidth * 0.25 * dockPosition).toFixed(1) + 'px');
+    gate.style.setProperty('--g-logo-size', (Math.min(innerWidth * 0.4, vh * 0.76) * (1 - 0.2 * dockPosition)).toFixed(1) + 'px');
+    gate.style.setProperty('--g-second', copyPosition.toFixed(4));
+    gate.style.setProperty('--g-copy-x', (innerWidth * 0.15 * (1 - copyPosition)).toFixed(1) + 'px');
+    seqDraw(seqPosition);
     if (dustOn) drawDust(t || 0);
     requestAnimationFrame(frame);
   }
