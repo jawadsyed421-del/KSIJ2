@@ -1,3 +1,4 @@
+
 .page {
   min-height: 100vh;
   background: #F4F0E7;
@@ -6,9 +7,34 @@
 }
 
 .hero {
-  padding: 76px 7% 68px;
-  background: #08170F;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 76px 7% 100px;
+  background:
+    linear-gradient(
+      rgba(8, 30, 19, 0.62),
+      rgba(8, 30, 19, 0.62)
+    ),
+    url('/images/events-hero.png') center 45% / cover no-repeat;
   color: #F4F0E7;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  left: -10%;
+  bottom: -1px;
+  width: 120%;
+  height: 65px;
+  background: #F4F0E7;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
 }
 
 .eyebrow {
@@ -99,22 +125,6 @@
 
 .empty p {
   color: #667067;
-}
-
-@media (max-width: 700px) {
-  .hero {
-    padding: 58px 7% 48px;
-  }
-
-  .content {
-    width: 88%;
-    padding-top: 28px;
-  }
-
-  .filters,
-  .eventGrid {
-    grid-template-columns: 1fr;
-  }
 }
 
 .venuesSection {
@@ -280,6 +290,20 @@
 }
 
 @media (max-width: 700px) {
+  .hero {
+    padding: 58px 7% 90px;
+  }
+
+  .content {
+    width: 88%;
+    padding-top: 28px;
+  }
+
+  .filters,
+  .eventGrid {
+    grid-template-columns: 1fr;
+  }
+
   .venueGrid {
     grid-template-columns: 1fr;
   }
