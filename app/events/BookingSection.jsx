@@ -1,11 +1,11 @@
-﻿
+
 'use client';
 
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 const RATES = {
   'Aaram Baug': {
-    'Gents – Masjid & Shahen': {
+    'Gents - Masjid & Shahen': {
       'Food Packet': { noAc: 1000, ac: 2000 },
       'Niyaz Serving': { noAc: 3000, ac: 4000 },
     },
@@ -26,11 +26,12 @@ const RATES = {
   },
 };
 
-const money = (amount) => `₹${amount.toLocaleString('en-IN')}`;
+const money = (amount) => `\u20B9${amount.toLocaleString('en-IN')}`;
 
-export default function BookingSection() {
+export default function BookingSection({ bookingRequest }) {
+  const sectionRef = useRef(null);
   const [venue, setVenue] = useState('Aaram Baug');
-  const [facility, setFacility] = useState('Gents – Masjid & Shahen');
+  const [facility, setFacility] = useState('Gents - Masjid & Shahen');
   const [service, setService] = useState('Food Packet');
   const [ac, setAc] = useState(false);
   const [date, setDate] = useState('');
@@ -66,8 +67,8 @@ export default function BookingSection() {
     }
 
     return [
-      'Afternoon · 12 PM – 3 PM',
-      'Evening · Maghribain Namaz – 10:30 PM',
+      'Afternoon | 12 PM - 3 PM',
+      'Evening | Maghribain Namaz - 10:30 PM',
     ];
   }, [isJannatul]);
 
@@ -79,6 +80,11 @@ export default function BookingSection() {
     setSlot('');
     setExtraHours(0);
   }
+
+  useEffect(() => {
+    const requestedVenue = bookingRequest?.venue;
+    if (requestedVenue && RATES[requestedVenue]) changeVenue(requestedVenue);
+  }, [bookingRequest]);
 
   function changeFacility(value) {
     setFacility(value);
@@ -131,6 +137,7 @@ export default function BookingSection() {
 
   return (
     <section
+      id="venue-booking"
       style={{
         marginTop: 56,
         padding: '32px 0',
@@ -313,7 +320,7 @@ export default function BookingSection() {
                 onChange={(e) => setExtraHours(Number(e.target.value))}
               >
                 <option value={0}>No extension</option>
-                <option value={1}>1 hour · ₹500</option>
+                <option value={1}>1 hour - &#8377;500</option>
               </select>
 
               <small>
@@ -324,7 +331,7 @@ export default function BookingSection() {
 
           {venue === 'Jannatul Hussain' && ac && (
             <p style={{ fontSize: 13, color: '#62665e' }}>
-              AC beyond 2.5 hours: ₹500 per additional hour. Final amount will
+              AC beyond 2.5 hours: ?500 per additional hour. Final amount will
               be confirmed by the Jamaat Office.
             </p>
           )}
@@ -409,7 +416,7 @@ export default function BookingSection() {
                   : 'default',
             }}
           >
-            Booking request · Coming soon
+            Booking request - Coming soon
           </button>
 
           <small style={{ display: 'block', marginTop: 9, color: '#777' }}>
@@ -495,7 +502,7 @@ export default function BookingSection() {
                   cursor: 'pointer',
                 }}
               >
-                ✕ Close
+                X Close
               </button>
             </div>
 
@@ -560,7 +567,7 @@ export default function BookingSection() {
                       opacity: tourZoom <= 0.75 ? 0.45 : 1,
                     }}
                   >
-                    −
+                    -
                   </button>
 
                   <span
@@ -613,9 +620,9 @@ export default function BookingSection() {
                   }}
                 >
                   Desktop: click and drag to explore. Mobile: swipe horizontally.
-                  Use + and − to zoom.
+                  Use + and - to zoom.
                   <br />
-                  This is a panoramic photograph, not a full 360° capture.
+                  This is a panoramic photograph, not a full 360-degree capture.
                 </p>
               </div>
             ) : (

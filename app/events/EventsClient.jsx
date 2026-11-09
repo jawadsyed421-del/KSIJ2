@@ -1,4 +1,4 @@
-﻿
+
 'use client';
 
 import { useMemo, useState } from 'react';
@@ -10,7 +10,7 @@ const VENUES = [
     name: 'Aaram Baug',
     address: '52, Mount Road, Byculla East, Rambhau Bhogle Marg, Mumbai - 400010',
     mapQuery: '52 Mount Road, Byculla East, Mumbai 400010',
-    image: 'aaram-baug.jpeg',
+    image: 'aaram-baug-signboard.png',
   },
   {
     name: 'Jannatul Hussain',
@@ -27,6 +27,7 @@ export default function EventsClient() {
   const [venue, setVenue] = useState('All');
   const [category, setCategory] = useState('All');
   const [activeVenue, setActiveVenue] = useState(null);
+  const [bookingRequest, setBookingRequest] = useState(null);
 
   const events = useMemo(() => SAMPLE_EVENTS.filter((event) => {
     const matchesSearch = event.title.toLowerCase().includes(search.toLowerCase());
@@ -72,7 +73,7 @@ export default function EventsClient() {
                 <span className={styles.venueLabel}>KSIJ VENUE</span>
                 <span className={styles.venueName}>{item.name}</span>
                 <span className={styles.venueAction}>
-                  View address & map ↗
+                  View address &amp; map &#8599;
                 </span>
               </button>
             ))}
@@ -136,7 +137,7 @@ export default function EventsClient() {
               <article className={styles.eventCard} key={event.id}>
                 <p>{event.category}</p>
                 <h2>{event.title}</h2>
-                <p>{event.date} · {event.time}</p>
+                <p>{event.date} | {event.time}</p>
                 <p>{event.venue}</p>
               </article>
             ))
@@ -144,7 +145,7 @@ export default function EventsClient() {
         </div>
       </section>
 
-      <BookingSection />
+      <BookingSection bookingRequest={bookingRequest} />
 
       {activeVenue && (
         <div
@@ -164,7 +165,7 @@ export default function EventsClient() {
               onClick={() => setActiveVenue(null)}
               aria-label="Close venue details"
             >
-              ×
+              X
             </button>
 
             <p className={styles.eyebrow}>KSIJ VENUE</p>
@@ -192,14 +193,27 @@ export default function EventsClient() {
             )}
 
             {activeVenue.mapQuery && (
+              <div className={styles.venueActions}>
               <a
                 className={styles.directionsLink}
                 href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(activeVenue.mapQuery)}`}
                 target="_blank"
                 rel="noreferrer"
               >
-                Get Directions ↗
+                Get Directions &#8599;
               </a>
+              <button
+                type="button"
+                className={styles.directionsLink}
+                onClick={() => {
+                  setBookingRequest({ venue: activeVenue.name, requestId: Date.now() });
+                  setActiveVenue(null);
+                  document.getElementById('venue-booking')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }}
+              >
+                Book This Venue
+              </button>
+              </div>
             )}
           </section>
         </div>
