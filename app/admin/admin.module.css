@@ -1,0 +1,397 @@
+﻿.dashboard {
+  min-height: 100vh;
+  padding: 42px clamp(18px, 5vw, 72px);
+  background: #f5f3eb;
+  color: #17251c;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  margin: 0 0 9px;
+  color: #a47b35;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.header h1 {
+  margin: 0;
+  color: #102b1d;
+  font-family: Georgia, serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 500;
+}
+
+.subtitle {
+  margin: 10px 0 0;
+  color: #718075;
+  font-size: 14px;
+}
+
+.adminLabel {
+  padding: 10px 16px;
+  border: 1px solid #d6c49c;
+  border-radius: 4px;
+  color: #80612b;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.demoNotice {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 15px 18px;
+  margin-bottom: 26px;
+  border: 1px solid #e5d3a8;
+  border-radius: 6px;
+  background: #fff9e9;
+  color: #705b2c;
+  font-size: 13px;
+}
+
+.demoNotice strong {
+  flex-shrink: 0;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 17px;
+  margin-bottom: 30px;
+}
+
+.statCard {
+  padding: 23px;
+  border: 1px solid #e8e5da;
+  border-radius: 7px;
+  background: #fff;
+}
+
+.statCard span {
+  display: block;
+  color: #7c887e;
+  font-size: 13px;
+}
+
+.statCard strong {
+  display: block;
+  margin-top: 13px;
+  color: #153b27;
+  font-family: Georgia, serif;
+  font-size: 34px;
+  font-weight: 500;
+}
+
+.panel {
+  overflow: hidden;
+  border: 1px solid #e8e5da;
+  border-radius: 7px;
+  background: #fff;
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 23px;
+  border-bottom: 1px solid #eeece5;
+}
+
+.panelHeader h2 {
+  margin: 0;
+  color: #153b27;
+  font-family: Georgia, serif;
+  font-size: 23px;
+  font-weight: 500;
+}
+
+.panelHeader p {
+  margin: 7px 0 0;
+  color: #879087;
+  font-size: 13px;
+}
+
+.filter {
+  min-width: 150px;
+  padding: 10px 12px;
+  border: 1px solid #dedfd5;
+  border-radius: 4px;
+  background: #fff;
+  color: #26392d;
+  font-size: 13px;
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.table th {
+  padding: 15px 17px;
+  background: #f8f8f4;
+  color: #7b877d;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.table td {
+  padding: 17px;
+  border-top: 1px solid #f0efe9;
+  color: #455349;
+  font-size: 12px;
+}
+
+.table td strong,
+.table td small {
+  display: block;
+}
+
+.table td strong {
+  color: #24392b;
+  font-size: 12px;
+}
+
+.table td small {
+  margin-top: 5px;
+  color: #909990;
+  font-size: 11px;
+}
+
+.bookingId {
+  color: #9a7535 !important;
+  font-weight: 700;
+}
+
+.status {
+  display: inline-block;
+  padding: 6px 9px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.pending {
+  background: #fff3d8;
+  color: #936c19;
+}
+
+.approved {
+  background: #e4f3e8;
+  color: #267243;
+}
+
+.rejected {
+  background: #fbe8e6;
+  color: #a33e35;
+}
+
+.viewButton {
+  padding: 8px 11px;
+  border: 1px solid #d5dfd6;
+  border-radius: 4px;
+  background: #fff;
+  color: #245239;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.viewButton:hover {
+  background: #edf4ee;
+}
+
+.empty {
+  padding: 35px !important;
+  color: #8b948c !important;
+  text-align: center;
+}
+
+.overlay {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgb(8 23 15 / 65%);
+}
+
+.modal {
+  width: min(100%, 620px);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 27px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 20px 70px rgb(0 0 0 / 20%);
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eeece5;
+}
+
+.modalHeader h2 {
+  margin: 0;
+  color: #153b27;
+  font-family: Georgia, serif;
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.closeButton {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: #f1f2ed;
+  color: #405246;
+  cursor: pointer;
+  font-size: 23px;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 21px;
+  padding: 24px 0;
+}
+
+.detailsGrid div span,
+.detailsGrid div strong {
+  display: block;
+}
+
+.detailsGrid div span {
+  margin-bottom: 6px;
+  color: #8b958c;
+  font-size: 11px;
+}
+
+.detailsGrid div strong {
+  color: #263b2e;
+  font-size: 13px;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 18px;
+  border-top: 1px solid #eeece5;
+}
+
+.rejectButton,
+.approveButton {
+  padding: 11px 18px;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.rejectButton {
+  background: #fbe8e6;
+  color: #a33e35;
+}
+
+.approveButton {
+  background: #173e29;
+  color: #fff;
+}
+
+.modalNote {
+  margin: 15px 0 0;
+  color: #929a92;
+  font-size: 11px;
+  text-align: right;
+}
+
+.footer {
+  padding-top: 28px;
+  color: #929a92;
+  font-size: 11px;
+  text-align: center;
+}
+
+@media (max-width: 850px) {
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 550px) {
+  .dashboard {
+    padding: 25px 14px;
+  }
+
+  .header {
+    align-items: flex-start;
+  }
+
+  .adminLabel {
+    padding: 8px;
+    font-size: 9px;
+  }
+
+  .demoNotice {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .stats {
+    gap: 10px;
+  }
+
+  .statCard {
+    padding: 16px;
+  }
+
+  .statCard strong {
+    font-size: 28px;
+  }
+
+  .panelHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .filter {
+    width: 100%;
+  }
+
+  .detailsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal {
+    padding: 20px;
+  }
+}
